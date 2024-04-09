@@ -7,8 +7,8 @@ import 'package:yamabico/invalid_argument_exception.dart';
 // REF: https://tech.excite.co.jp/entry/2022/09/12/120000
 
 class RouteType {
-  static const Map<String, String> _paths = {
-    'guestTop': '/',
+  static final Map<String, String> _paths = {
+    'guestTop': '/guest',
     'login': '/login',
     'posts': '/posts',
   };

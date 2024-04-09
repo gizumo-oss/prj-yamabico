@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
       authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
         switch (state.currentStep) {
           case AuthenticatorStep.signIn:
+            // TODO: signin成功後にauth providerのsignedInのフラグを変えたい
             return CustomScaffold(
               state: state,
               body: SignInForm(),
@@ -31,10 +32,7 @@ class LoginScreen extends StatelessWidget {
             return null;
         }
       },
-      child: MaterialApp(
-        builder: Authenticator.builder(),
-        home: const IndexScreen(),
-      ),
+      child: const IndexScreen(),
     );
   }
 }
