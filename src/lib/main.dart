@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -93,7 +92,6 @@ class _AuthPageState extends State<AuthPage> {
         const SnackBar(content: Text('Error: サインインに失敗しました。')),
       );
     } else {
-      safePrint('test');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const MyHomePage()),
       );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yamabico/guest_top_screen.dart';
 import 'package:yamabico/feature/posts/presentation/index_screen.dart';
-import 'package:yamabico/feature/auth/presentation/login_screen.dart';
+import 'package:yamabico/guest_top_screen.dart';
 import 'package:yamabico/invalid_argument_exception.dart';
+import 'package:yamabico/main.dart';
 
 // REF: https://tech.excite.co.jp/entry/2022/09/12/120000
 
@@ -39,7 +39,7 @@ class RouteType {
   static Map<String, Widget Function(BuildContext)> routeScreenMaps() {
     return {
       _paths['guestTop']!: (context) => const GuestTopScreen(),
-      _paths['login']!: (context) => const LoginScreen(),
+      _paths['login']!: (context) => const AuthPage(),
       _paths['posts']!: (context) => const IndexScreen(),
       // TODO: userDetailへの遷移を実装する
       // _paths['userDetail']!: (context) => const UserDetailScreen(),

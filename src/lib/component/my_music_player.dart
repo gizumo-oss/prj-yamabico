@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class MyMusicPlayer extends StatelessWidget {
@@ -26,24 +25,18 @@ class MyMusicPlayer extends StatelessWidget {
                   icon: const Icon(Icons.loop),
                   iconSize: 30.0,
                   color: Colors.white,
-                  onPressed: () {
-                    safePrint('fast forward');
-                  },
+                  onPressed: () {},
                 ),
                 const SizedBox(width: 30.0),
                 IconButton(
                   icon: const Icon(Icons.play_circle_outline),
                   iconSize: 40.0,
                   color: Colors.white,
-                  onPressed: () {
-                    safePrint('play');
-                  },
+                  onPressed: () {},
                 ),
                 const SizedBox(width: 30.0),
                 TextButton(
-                  onPressed: () {
-                    safePrint('change play speed');
-                  },
+                  onPressed: () {},
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(
