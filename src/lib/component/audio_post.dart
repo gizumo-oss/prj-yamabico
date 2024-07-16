@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yamabico/feature/posts/presentation/index_screen.dart';
@@ -85,7 +84,6 @@ class ItemState extends ChangeNotifier {
         _playedMap[key] = false;
       }
     });
-    safePrint('$index番目の音声再生中');
     notifyListeners();
   }
 }

@@ -1,4 +1,3 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:yamabico/route_type.dart';
@@ -63,7 +62,11 @@ class _CustomIconButton extends StatelessWidget {
   final String label;
   final RouteType moveTo;
 
-  const _CustomIconButton({required this.icon, required this.label, required this.moveTo});
+  const _CustomIconButton({
+    required this.icon,
+    required this.label,
+    required this.moveTo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +87,6 @@ class _CustomIconButton extends StatelessWidget {
       ),
       iconSize: 45.0,
       onPressed: () {
-        safePrint('$label is clicked');
         Navigator.pushNamed(context, moveTo.value());
       },
     );
