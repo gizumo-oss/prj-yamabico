@@ -6,15 +6,18 @@ Deno.serve(async (req) => {
   const supaURL: string | undefined = Deno.env.get("SUPABASE_URL")
   const supaAnonKey: string | undefined = Deno.env.get("SUPABASE_ANON_KEY")
   if (supaURL === undefined || supaAnonKey === undefined) {
-    throw new Error('環境変数を設定してください。');
+    return new Response(
+      JSON.stringify('環境変数を設定してください'),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 401
+      },
+    )
   }
   const supabase = createClient(supaURL, supaAnonKey)
 
   // user情報を取得
   let token = req.headers.get('authorization')
-  if (token === null) {
-    throw new Error('unauthorized');
-  }
   const userInfo = await supabase.auth.getUser(token.slice(7));
 
   // エンドポイントから情報の抜き出し
