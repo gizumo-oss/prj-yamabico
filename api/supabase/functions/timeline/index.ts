@@ -2,44 +2,39 @@ import "https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 Deno.serve(async (req) => {
+  // supabaseクライアント作成
   const supaURL: string | undefined = Deno.env.get("SUPABASE_URL")
   const supaAnonKey: string | undefined = Deno.env.get("SUPABASE_ANON_KEY")
-
-  let supabase: any
-  if (supaURL !== undefined && supaAnonKey !== undefined) {
-    supabase = createClient(supaURL, supaAnonKey)
+  if (supaURL === undefined || supaAnonKey === undefined) {
+    throw new Error('環境変数を設定してください。');
   }
+  const supabase = createClient(supaURL, supaAnonKey)
 
   // user情報を取得
   let token = req.headers.get('authorization')
-  if (token != null) {
-    token = token.split('Bearer ')[1];
+  if (token === null) {
+    throw new Error('unauthorized');
   }
-  const userInfo = await supabase.auth.getUser(token);
+  const userInfo = await supabase.auth.getUser(token.split('Bearer ')[1]);
+
+  // エンドポイントから情報の抜き出し
   const url = new URL(req.url)
   const params = new URLSearchParams(url.search)
   const sortedBy = params.get('sortedBy')
-  const orderBy = params.get('orderBy')
-  let audios: any
+
+  // DBへのリクエスト
+  const query = supabase
+    .from('audios')
+    .select('*')
+    .neq('created_by', userInfo.data.user.id);
 
   // ソート
-  if (sortedBy !== null) {
-    const ascending = orderBy !== 'asc' ? true : false
-
-    audios = await supabase
-      .from('audios')
-      .select('*')
-      .neq('created_by', userInfo.data.user.id)
-      .order(sortedBy, {ascending: ascending})
-  } else {
-    audios = await supabase
-      .from('audios')
-      .select('*')
-      .neq('created_by', userInfo.data.user.id)
+  if (sortedBy) {
+    query.order(sortedBy, { ascending: (params.get('orderBy') ?? 'asc') === 'asc' });
   }
 
   return new Response(
-    JSON.stringify(audios),
+    JSON.stringify(await query),
     { headers: { "Content-Type": "application/json" } },
   )
 })
