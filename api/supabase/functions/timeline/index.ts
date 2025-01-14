@@ -15,8 +15,6 @@ Deno.serve(async (req) => {
   if (token != null) {
     token = token.split('Bearer ')[1];
   }
-
-  // Requestから情報を取得する
   const userInfo = await supabase.auth.getUser(token);
   const url = new URL(req.url)
   const params = new URLSearchParams(url.search)
@@ -24,6 +22,7 @@ Deno.serve(async (req) => {
   const orderBy = params.get('orderBy')
   let audios: any
 
+  // ソート
   if (sortedBy !== null) {
     const ascending = orderBy !== 'asc' ? true : false
 
