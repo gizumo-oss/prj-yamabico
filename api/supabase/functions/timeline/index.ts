@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
   if (token === null) {
     throw new Error('unauthorized');
   }
-  const userInfo = await supabase.auth.getUser(token.split('Bearer ')[1]);
+  const userInfo = await supabase.auth.getUser(token.slice(7));
 
   // エンドポイントから情報の抜き出し
   const url = new URL(req.url)
